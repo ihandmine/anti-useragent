@@ -10,10 +10,11 @@ class BaseUserAgent:
             cls._INSTANCE = super().__new__(cls)
         return cls._INSTANCE
 
-    def __init__(self, platform: str, version: int, logger, *args, **kwargs):
+    def __init__(self, platform: str, min_version: int, max_version: int, logger, *args, **kwargs):
         self.settings = self._settings
-        if version:
-            assert isinstance(version, int), 'Version must be int'
+        if min_version or max_version:
+            assert isinstance(min_version, int), 'Min Version must be int'
+            assert isinstance(max_version, int), 'Max Version must be int'
         if platform:
             assert isinstance(platform, str), 'Platform must be string'
         if all([platform, (platform not in self.settings.get('PLATFORM'))]):
@@ -21,7 +22,8 @@ class BaseUserAgent:
 
         self.logger = logger
         self.platform = platform
-        self.version = version
+        self.min_version = min_version
+        self.max_version = max_version
         self.s_info = None
         self.s_bit = None
 

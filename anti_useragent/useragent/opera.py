@@ -18,8 +18,11 @@ class OperaUA(BaseUserAgent):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if not self.version:
-            self.version = 90
+        if not self.min_version:
+            self.min_version = 55
+
+        if not self.max_version:
+            self.max_version = 90
 
     @property
     def ua(self):
@@ -27,11 +30,11 @@ class OperaUA(BaseUserAgent):
         _ua = self.settings.get('BASE_USER_AGENT_OPERA') % {
             'system_info': choice(self.s_info),
             'system_bit': choice(self.s_bit),
-            'big_version': randint(55, self.version),
+            'big_version': randint(self.min_version, self.max_version),
             'mid_version': randint(0, 9),
             'small_version': randint(3000, 9999),
             'beta_version': randint(0, 9),
-            'o_version': randint(30, self.version),
+            'o_version': randint(30, self.max_version),
             'os_version': randint(1000, 9999),
             'ob_version': randint(10, 99),
         }
@@ -40,6 +43,6 @@ class OperaUA(BaseUserAgent):
         return _ua
 
     def __repr__(self):
-        return "<Chrome-UserAgent/ platform: %s/ max_version: %s>" % (self.platform, self.version)
+        return "<Chrome-UserAgent/ platform: %s/ max_version: %s>" % (self.platform, self.max_version)
 
 

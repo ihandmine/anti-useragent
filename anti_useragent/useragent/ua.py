@@ -13,10 +13,11 @@ class UserAgent(object):
         'opera': OperaUA
     }
 
-    def __init__(self, platform=None, version=None, logger=False):
+    def __init__(self, platform=None, min_version=None, max_version=None, logger=False):
         self.logger = logger
         self.platform = platform
-        self.version = version
+        self.min_version = min_version
+        self.max_version = max_version
 
     def __getitem__(self, item):
         return self.__getattr__(item)
@@ -25,13 +26,13 @@ class UserAgent(object):
         try:
             if item == 'random':
                 attr = choice(list(self.shortcut.keys()))
-                _ua = self.shortcut[attr](self.platform, self.version, self.logger)
+                _ua = self.shortcut[attr](self.platform, self.min_version, self.max_version, self.logger)
                 if not _ua.platform:
                     platform = choice(_ua.settings.get('PLATFORM'))
                     _ua.set_platform(platform)
                 return getattr(_ua, 'ua')
             else:
-                return getattr(self.shortcut[item](self.platform, self.version, self.logger), 'ua')
+                return getattr(self.shortcut[item](self.platform, self.min_version, self.max_version, self.logger), 'ua')
         except UserAgentError:
             raise AntiUserAgentError('Error occurred during getting useragent')
 

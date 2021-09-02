@@ -23,8 +23,12 @@ class FirefoxUA(BaseUserAgent):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        if not self.version:
-            self.version = 50
+    
+        if not self.min_version:
+            self.min_version = 10
+
+        if not self.max_version:
+            self.max_version = 50
 
     @property
     def ua(self):
@@ -32,7 +36,7 @@ class FirefoxUA(BaseUserAgent):
         _ua = self.settings.get('BASE_USER_AGENT_FIREFOX') % {
             'system_info': choice(self.s_info),
             'system_bit': choice(self.s_bit),
-            'r_version': float(randint(10, self.version)),
+            'r_version': float(randint(self.min_version, self.max_version)),
             'version': float(randint(10, 50))
         }
         if self.logger:
@@ -40,4 +44,4 @@ class FirefoxUA(BaseUserAgent):
         return _ua
 
     def __repr__(self):
-        return "<Firefox-UserAgent/ platform: %s/ max_version: %s>" % (self.platform, self.version)
+        return "<Firefox-UserAgent/ platform: %s/ max_version: %s>" % (self.platform, self.max_version)

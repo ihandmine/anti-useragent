@@ -28,7 +28,7 @@ LONG_DESCRIPTION = read('README.md')
 URL = ""
 AUTHOR = "handmine"
 AUTHOR_EMAIL = "handmine@outlook.com"
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 LICENSE = "MIT"
 
 setup(
