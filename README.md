@@ -47,11 +47,13 @@ from anti_useragent import UserAgent
 ua = UserAgent(platform='mac')
 ```
 
-If You want to  specify the browser max version just: 
+If You want to  specify the browser max version or min version just: 
 
 ```python
 from anti_useragent import UserAgent
-ua = UserAgent(version=90)
+ua = UserAgent(max_version=90)
+
+ua = UserAgent(min_version=50)
 ```
 
 If You want to  specify the enable logger just: 
