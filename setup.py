@@ -24,7 +24,8 @@ def read(*parts):
 NAME = "anti_useragent"
 PACKAGES = list_dir('anti_useragent')
 DESCRIPTION = "fake chrome, firefox, opera browser header anti useragent"
-LONG_DESCRIPTION = read('README.md')
+# LONG_DESCRIPTION = read('README.md')
+LONG_DESCRIPTION = ''
 URL = ""
 AUTHOR = "handmine"
 AUTHOR_EMAIL = "handmine@outlook.com"
