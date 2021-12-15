@@ -1,16 +1,49 @@
 from random import choice
 
-from anti_useragent.useragent.chrome import ChromeUA
-from anti_useragent.useragent.firefox import FirefoxUA
-from anti_useragent.useragent.opera import OperaUA
+from anti_useragent.useragent import target
 from anti_useragent.exceptions import UserAgentError, AntiUserAgentError
 
 
 class UserAgent(object):
-    shortcut = {
-        'chrome': ChromeUA,
-        'firefox': FirefoxUA,
-        'opera': OperaUA
+    _shortcut = {
+        'chrome': target.ChromeUA,
+        'firefox': target.FirefoxUA,
+        'opera': target.OperaUA,
+        'chrome_android': target.ChromeAndroidUA,
+        'chrome_iphone': target.ChromeIphoneUA,
+        'wechat_android': target.WechatAndroidUA,
+        'wechat_iphone': target.WechatIphoneUA,
+        'baidu_android': target.BaiduAndroidUA,
+        'baidu_iphone': target.BaiduIphoneUA,
+        'uc': target.UcUA
+    }
+    _platform_ua_map = {
+        'android': [
+            'chrome_android',
+            'wechat_android',
+            'baidu_android',
+            'uc'
+        ],
+        'iphone': [
+            'chrome_iphone',
+            'wechat_iphone',
+            'baidu_iphone',
+        ],
+        'windows': [
+            'chrome',
+            'firefox',
+            'opera',
+        ],
+        'linux': [
+            'chrome',
+            'firefox',
+            'opera',
+        ],
+        'mac': [
+            'chrome',
+            'firefox',
+            'opera',
+        ],
     }
 
     def __init__(self, platform=None, min_version=None, max_version=None, logger=False):
@@ -19,22 +52,29 @@ class UserAgent(object):
         self.min_version = min_version
         self.max_version = max_version
 
-    def __getitem__(self, item):
-        return self.__getattr__(item)
+    def __getitem__(self, rule):
+        return self.__getattr__(rule)
 
-    def __getattr__(self, item):
+    def __getattr__(self, rule):
         try:
-            if item == 'random':
-                attr = choice(list(self.shortcut.keys()))
-                _ua = self.shortcut[attr](self.platform, self.min_version, self.max_version, self.logger)
-                if not _ua.platform:
-                    platform = choice(_ua.settings.get('PLATFORM'))
-                    _ua.set_platform(platform)
+            if rule != 'random':
+                _item_rule = [item for item in list(self._shortcut.keys()) if rule in item]
+                _item_rule = [item for item in self._platform_ua_map[self.platform]
+                                  if rule in item] if self.platform else _item_rule
+                print(_item_rule)
+                return getattr(self._shortcut[''.join(choice(_item_rule) if _item_rule else []) or rule](self.platform, self.min_version, self.max_version, self.logger), 'ua')
+            if not self.platform:
+                _attr = choice(list(self._shortcut.keys()))
+                _ua = self._shortcut[_attr](self.platform, self.min_version, self.max_version, self.logger)
+                _ua.set_platform(choice(_ua.settings.get('PLATFORM')))
                 return getattr(_ua, 'ua')
             else:
-                return getattr(self.shortcut[item](self.platform, self.min_version, self.max_version, self.logger), 'ua')
+                _attr = choice(self._platform_ua_map[self.platform])
+                _ua = self._shortcut[_attr](self.platform, self.min_version, self.max_version, self.logger)
+                return getattr(_ua, 'ua')
         except UserAgentError:
-            raise AntiUserAgentError('Error occurred during getting useragent')
-
+            raise AntiUserAgentError('Error occurred during getting useragent.')
+        except KeyError:
+            raise AntiUserAgentError('The platform unsupported browser.')
 
 AntiUserAgent = UserAgent

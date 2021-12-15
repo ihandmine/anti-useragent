@@ -3,13 +3,13 @@ from __future__ import absolute_import, unicode_literals
 import sys
 import socket
 
-from anti_useragent.utils.misc import install
+from anti_useragent.utils import misc
 
 
 try:
     from loguru import logger
 except:
-    install("loguru")
+    misc.install("loguru")
     from loguru import logger
 
 
