@@ -1,21 +1,21 @@
 from random import choice
 
-from anti_useragent.useragent import target
+from anti_useragent.useragent import browser
 from anti_useragent.exceptions import UserAgentError, AntiUserAgentError
 
 
 class UserAgent(object):
     _shortcut = {
-        'chrome': target.ChromeUA,
-        'firefox': target.FirefoxUA,
-        'opera': target.OperaUA,
-        'chrome_android': target.ChromeAndroidUA,
-        'chrome_iphone': target.ChromeIphoneUA,
-        'wechat_android': target.WechatAndroidUA,
-        'wechat_iphone': target.WechatIphoneUA,
-        'baidu_android': target.BaiduAndroidUA,
-        'baidu_iphone': target.BaiduIphoneUA,
-        'uc': target.UcUA
+        'chrome': browser.ChromeUA,
+        'firefox': browser.FirefoxUA,
+        'opera': browser.OperaUA,
+        'chrome_android': browser.ChromeAndroidUA,
+        'chrome_iphone': browser.ChromeIphoneUA,
+        'wechat_android': browser.WechatAndroidUA,
+        'wechat_iphone': browser.WechatIphoneUA,
+        'baidu_android': browser.BaiduAndroidUA,
+        'baidu_iphone': browser.BaiduIphoneUA,
+        'uc': browser.UcUA
     }
     _platform_ua_map = {
         'android': [
