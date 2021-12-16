@@ -32,13 +32,28 @@ ua.firefox
 # Mozilla/5.0 (Windows NT 5.1; WOW64; rv:47.0) Gecko/20100101 Firefox/45.0
 ua['firefox']
 # Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:49.0) Gecko/20100101 Firefox/31.0
+ua.android
+# Mozilla/5.0 (Linux; Android 7.5.2; M571C Build/LMY47D) AppleWebKit/666.7 (KHTML, like Gecko) Chrome/72.7.7953.78 Mobile Safari/666.7
+ua.iphone
+# Mozilla/5.0 (iPhone; CPU iPhone OS 7_1_1 like Mac OS X) AppleWebKit/349.56 (KHTML, like Gecko) Mobile/J9UMJN baiduboxapp/0_17.7.6.6_enohpi_8957_628/2.01_4C2%258enohPi/1099a/P0SJ2RX4DXJT3RW906040KVOSH2E76RJUNHVIJUPCJQCZMEM2GL/1
+ua.wechat
+# Mozilla/5.0 (Linux; Android 10.9.8; MI 5 Build/NRD90M) AppleWebKit/536.93 (KHTML, like Gecko) Chrome/81.7.8549.56 Mobile Safari/536.93
 
 # and the best one, random via real world browser usage statistic
 ua.random
 # Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.3.8610.5 Safari/537.36
 ```
 
+### Supported platform
 
+| browser/platfom | windows | mac  | linux | iphone | android |
+| :-------------: | :-----: | :--: | :---: | :----: | :-----: |
+|   **chrome**    |    ✔    |  ✔   |   ✔   |   ✔    |    ✔    |
+|   **firefox**   |    ✔    |  ✔   |   ✔   |   ❌    |    ❌    |
+|    **opera**    |    ✔    |  ✔   |   ✔   |   ❌    |    ❌    |
+|   **wechat**    |    ❌    |  ❌   |   ❌   |   ✔    |    ✔    |
+|    **baidu**    |    ❌    |  ❌   |   ❌   |   ✔    |    ✔    |
+|     **uc**      |    ❌    |  ❌   |   ❌   |   ❌    |    ✔    |
 
 If You want to  specify the platform just: 
 

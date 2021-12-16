@@ -61,7 +61,6 @@ class UserAgent(object):
                 _item_rule = [item for item in list(self._shortcut.keys()) if rule in item]
                 _item_rule = [item for item in self._platform_ua_map[self.platform]
                                   if rule in item] if self.platform else _item_rule
-                print(_item_rule)
                 return getattr(self._shortcut[''.join(choice(_item_rule) if _item_rule else []) or rule](self.platform, self.min_version, self.max_version, self.logger), 'ua')
             if not self.platform:
                 _attr = choice(list(self._shortcut.keys()))

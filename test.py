@@ -25,4 +25,4 @@ if __name__ == '__main__':
     # print(UserAgent()['uc'])
     # print(UserAgent()['baidu_iphone'])
 
-    print(UserAgent().random)
+    print(UserAgent().wechat)
