@@ -3,6 +3,7 @@ import ssl
 import requests
 
 from loguru import logger
+from copy import deepcopy
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.poolmanager import PoolManager
 
@@ -32,22 +33,58 @@ class SSLFactory:
 sslgen = SSLFactory()
 
 
+class _SSLMethod(object):
+    ssl_method = {
+        'SSLv23': ssl.PROTOCOL_SSLv23,
+        'SSLv2': ssl.PROTOCOL_SSLv2,
+        'SSLv3': ssl.PROTOCOL_SSLv3,
+        'TLSv1': ssl.PROTOCOL_TLSv1,
+        'TLSv1_1': ssl.PROTOCOL_TLSv1_1,
+        'TLSv1_2': ssl.PROTOCOL_TLSv1_2,
+        'TLS': ssl.PROTOCOL_TLS,
+        'TLS_CLIENT': ssl.PROTOCOL_TLS_CLIENT,
+        'TLS_SERVER': ssl.PROTOCOL_TLS_SERVER,
+    }
+
+    ssl_context = {
+        'SSLv2': ssl.OP_NO_SSLv2,
+        'SSLv3': ssl.OP_NO_SSLv3,
+        'TLSv1': ssl.OP_NO_TLSv1,
+        'TLSv1_1': ssl.OP_NO_TLSv1_1,
+        'TLSv1_2': ssl.OP_NO_TLSv1_2,
+        'TLSv1_3': ssl.OP_NO_TLSv1_3,
+    }
+
+    def __init__(self, version=None):
+        self.version: str = version or "TLSv1_2"
+
+    @property
+    def gen(self):
+        return self.ssl_method[self.version]
+
+    @property
+    def context(self):
+        return self.ssl_context[self.version]
+
+
 def set_requests_cipers(func):
     def inner(*args, **kwargs):
         global ORIGIN_CIPHERS
-        cipers = ORIGIN_CIPHERS
+        cipers = deepcopy(ORIGIN_CIPHERS)
         requests.adapters.DEFAULT_RETRIES = 50
         requests.packages.urllib3.disable_warnings()
         cipers_list = cipers.split(':')
         random.shuffle(cipers_list)
         cipers_real = ':'.join(cipers_list)
         # logger.debug(cipers_real)
-        requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS += cipers_real
-        func(*args, **kwargs)
+        requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS = cipers_real
+        return func(*args, **kwargs)
     return inner
 
 
-def set_tls_protocol():
+def set_tls_protocol(version: str) -> requests.Session:
+
+    _version = _SSLMethod(version).gen
 
     class Ssl3HttpAdapter(HTTPAdapter):
         """"Transport adapter" that allows us to use SSLv3."""
@@ -57,7 +94,7 @@ def set_tls_protocol():
                 num_pools=connections,
                 maxsize=maxsize,
                 block=block,
-                ssl_version=ssl.PROTOCOL_TLSv1_2)
+                ssl_version=_version)
 
     s = requests.Session()
     s.mount('https://', Ssl3HttpAdapter())

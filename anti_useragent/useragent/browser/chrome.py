@@ -17,7 +17,7 @@ class ChromeUA(BaseUserAgent):
 
     def __init__(self, *args, **kwargs):
         self.min_version = getattr(self, 'min_version', 55)
-        self.max_version = getattr(self, 'max_version', 90)
+        self.max_version = getattr(self, 'max_version', 100)
         super().__init__(*args, **kwargs)
 
 
@@ -46,7 +46,7 @@ class ChromeAndroidUA(BaseUserAgent):
 
     def __init__(self, *args, **kwargs):
         self.min_version = getattr(self, 'min_version', 55)
-        self.max_version = getattr(self, 'max_version', 90)
+        self.max_version = getattr(self, 'max_version', 100)
         super().__init__(*args, **kwargs)
 
 
@@ -71,7 +71,7 @@ class ChromeIphoneUA(BaseUserAgent):
 
     def __init__(self, *args, **kwargs):
         self.min_version = getattr(self, 'min_version', 55)
-        self.max_version = getattr(self, 'max_version', 90)
+        self.max_version = getattr(self, 'max_version', 100)
         super().__init__(*args, **kwargs)
 
 
