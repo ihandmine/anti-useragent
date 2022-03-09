@@ -29,7 +29,7 @@ LONG_DESCRIPTION = ''
 URL = "https://github.com/ihandmine/anti-useragent.git"
 AUTHOR = "handmine"
 AUTHOR_EMAIL = "handmine@outlook.com"
-VERSION = "0.0.3"
+VERSION = "1.0.1"
 LICENSE = "MIT"
 
 setup(
@@ -50,7 +50,9 @@ setup(
     packages=PACKAGES,
     include_package_data=True,
     zip_safe=True,
-    install_requires=[],
+    install_requires=[
+        'loguru',
+    ],
     keywords=[
         'user', 'agent', 'user agent', 'useragent',
         'fake', 'fake useragent', 'fake user agent',
