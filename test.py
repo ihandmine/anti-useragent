@@ -1,4 +1,4 @@
-from anti_useragent import UserAgent
+from anti_useragent import UserAgent, sslgen
 import anti_useragent
 # from fake_useragent import FakeUserAgent
 
@@ -25,4 +25,5 @@ if __name__ == '__main__':
     # print(UserAgent()['uc'])
     # print(UserAgent()['baidu_iphone'])
 
-    print(UserAgent().wechat)
+    # print(UserAgent().wechat)
+    print(sslgen())

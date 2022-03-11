@@ -29,7 +29,7 @@ LONG_DESCRIPTION = ''
 URL = "https://github.com/ihandmine/anti-useragent.git"
 AUTHOR = "handmine"
 AUTHOR_EMAIL = "handmine@outlook.com"
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 LICENSE = "MIT"
 
 setup(
