@@ -1,6 +1,7 @@
 from random import choice
 
 from anti_useragent.useragent import browser
+from anti_useragent.settings import Settings
 from anti_useragent.exceptions import UserAgentError, AntiUserAgentError
 
 
@@ -17,40 +18,18 @@ class UserAgent(object):
         'baidu_iphone': browser.BaiduIphoneUA,
         'uc': browser.UcUA
     }
-    _platform_ua_map = {
-        'android': [
-            'chrome_android',
-            'wechat_android',
-            'baidu_android',
-            'uc'
-        ],
-        'iphone': [
-            'chrome_iphone',
-            'wechat_iphone',
-            'baidu_iphone',
-        ],
-        'windows': [
-            'chrome',
-            'firefox',
-            'opera',
-        ],
-        'linux': [
-            'chrome',
-            'firefox',
-            'opera',
-        ],
-        'mac': [
-            'chrome',
-            'firefox',
-            'opera',
-        ],
-    }
 
     def __init__(self, platform=None, min_version=None, max_version=None, logger=False):
         self.logger = logger
         self.platform = platform
         self.min_version = min_version
         self.max_version = max_version
+        self.settings = self.from_settings
+        self._platform_ua_map = self.settings.get('PLATFORM_UA_MAP')
+
+    @property
+    def from_settings(self):
+        return Settings()
 
     def __getitem__(self, rule):
         return self.__getattr__(rule)

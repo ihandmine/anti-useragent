@@ -110,3 +110,32 @@ PLATFORM_OVERRIDES = {
     'android': [ANDROID_SYSTEM_LIST, NET_TYPE],
     'iphone': [ANDROID_SYSTEM_LIST, NET_TYPE],
 }
+
+PLATFORM_UA_MAP = {
+    'android': [
+        'chrome_android',
+        'wechat_android',
+        'baidu_android',
+        'uc'
+    ],
+    'iphone': [
+        'chrome_iphone',
+        'wechat_iphone',
+        'baidu_iphone',
+    ],
+    'windows': [
+        'chrome',
+        'firefox',
+        'opera',
+    ],
+    'linux': [
+        'chrome',
+        'firefox',
+        'opera',
+    ],
+    'mac': [
+        'chrome',
+        'firefox',
+        'opera',
+    ],
+}

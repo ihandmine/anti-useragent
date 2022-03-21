@@ -23,7 +23,7 @@ def set_log_config(formatter, logfile=None):
                     "level": "TRACE"
                 },
                 {
-                    "sink": "info.log" if not logfile else logfile,
+                    "sink": f"{__file__}.log" if not logfile else logfile,
                     "format": formatter,
                     "level": "INFO",
                     "rotation": '1 week',
