@@ -105,24 +105,26 @@ Add awesome tools usage:
 # requests:
 from anti_useragent.utils.cipers import set_requests_cipers, set_tls_protocol
 
-# tls verify
+# ja3 tls verify
 @set_requests_cipers
 def get_html():
     requests.get(...)
 
-# tls version
+# ja3 tls version
 session = set_tls_protocol(version="TLSv1_2")
 
 
 # aiohttp:
 from anti_useragent.utils.cipers import sslgen
 async with ClientSession(connector=aiohttp.TCPConnector(ssl=False)) as session:
-    # tls verify
+    # ja3 tls verify
     await session.get(..., ssl=sslgen())
 
-    # tls version
+    # ja3 tls version
     await session.get(..., ssl=sslgen(_ssl="TLSv1_2"))
 
-
+# scrapy:
+# settings.py ja3 tls verify
+DOWNLOADER_CLIENTCONTEXTFACTORY = 'anti_useragent.utils.scrapy_contextfactory.Ja3ScrapyClientContextFactory'
 
 ```
