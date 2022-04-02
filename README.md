@@ -101,7 +101,7 @@ import anti_useragent
 print(anti_useragent.VERSION)
 ```
 Add awesome tools usage:
-```
+```python
 # requests:
 from anti_useragent.utils.cipers import set_requests_cipers, set_tls_protocol
 
