@@ -44,14 +44,32 @@ class _SSLMethod(object):
         return self.ssl_context
 
 
+class CipherFactory:
+    def __init__(self, cipher: str = None):
+        if cipher is None:
+            cipher = ORIGIN_CIPHERS
+        self.cipher = cipher
+
+    @classmethod
+    def setter_cipher(cls, val: str = None):
+        return cls(val)
+
+    def __call__(self) -> str:
+        ciphers_list = self.cipher.split(':')
+        random.shuffle(ciphers_list)
+        ciphers_real = ':'.join(ciphers_list)
+        return ciphers_real
+
+
+generate_cipher = CipherFactory()
+
+
 class SSLFactory:
-    def __init__(self):
-        self.ciphers = ORIGIN_CIPHERS.split(":")
+    cipers = generate_cipher
 
     def __call__(self, _ssl: str = 'TLSv1_2') -> ssl.SSLContext:
         _verion_set = _SSLMethod(_ssl).context
-        random.shuffle(self.ciphers)
-        ciphers = ":".join(self.ciphers) + ":!aNULL:!eNULL:!MD5"
+        ciphers = self.cipers() + ":!aNULL:!eNULL:!MD5"
 
         context = ssl.create_default_context()
         for ssl_option in _verion_set.values():
@@ -66,13 +84,9 @@ sslgen = SSLFactory()
 def set_requests_cipers(func):
     """[jar3 anti spider] decorator requests package to use random cipers"""
     def inner(*args, **kwargs):
-        global ORIGIN_CIPHERS
-        cipers = deepcopy(ORIGIN_CIPHERS)
         requests.adapters.DEFAULT_RETRIES = 50
         requests.packages.urllib3.disable_warnings()
-        cipers_list = cipers.split(':')
-        random.shuffle(cipers_list)
-        cipers_real = ':'.join(cipers_list)
+        cipers_real = generate_cipher()
         # logger.debug(cipers_real)
         requests.packages.urllib3.util.ssl_.DEFAULT_CIPHERS = cipers_real
         return func(*args, **kwargs)
@@ -102,5 +116,6 @@ def set_tls_protocol(version: str) -> requests.Session:
 __all__ = [
     sslgen,
     set_tls_protocol,
-    set_requests_cipers
+    set_requests_cipers,
+    generate_cipher
 ]
