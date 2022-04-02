@@ -2,13 +2,13 @@
 
 
 
-> info: fake chrome, firefox, opera browser header anti useragent
+> info: fake pc or app browser useragent, anti useragent, and other awesome tools
 
 ## Features
 
 - more browser up to date
 - more randomize ruler
-- grabs up to date `useragent` from [useragentstring.com](http://useragentstring.com/)
+- mort fun awesome toos
 
 ### Installation
 
@@ -100,4 +100,29 @@ import anti_useragent
 
 print(anti_useragent.VERSION)
 ```
+Add awesome tools usage:
+```
+# requests:
+from anti_useragent.utils.cipers import set_requests_cipers, set_tls_protocol
 
+# tls verify
+@set_requests_cipers
+def get_html():
+    requests.get(...)
+
+# tls version
+session = set_tls_protocol(version="TLSv1_2")
+
+
+# aiohttp:
+from anti_useragent.utils.cipers import sslgen
+async with ClientSession(connector=aiohttp.TCPConnector(ssl=False)) as session:
+    # tls verify
+    await session.get(..., ssl=sslgen())
+
+    # tls version
+    await session.get(..., ssl=sslgen(_ssl="TLSv1_2"))
+
+
+
+```
