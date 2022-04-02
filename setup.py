@@ -10,11 +10,11 @@ from setuptools import setup, Command
 
 
 NAME = "anti_useragent"
-DESCRIPTION = "fake chrome, firefox, opera browser header anti useragent"
+DESCRIPTION = "fake pc or app browser useragent, anti useragent, and other awesome tools"
 URL = "https://github.com/ihandmine/anti-useragent"
 AUTHOR = "handmine"
 AUTHOR_EMAIL = "handmine@outlook.com"
-VERSION = "1.0.5"
+VERSION = "1.0.6"
 LICENSE = "MIT"
 REQUIRES_PYTHON = ">=3.7.0"
 
