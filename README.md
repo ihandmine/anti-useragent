@@ -8,7 +8,9 @@
 
 - more browser up to date
 - more randomize ruler
-- mort fun awesome toos
+- more fun awesome tools
+
+English | [中文](./doc/README_ZH.md)
 
 ### Installation
 
@@ -59,7 +61,7 @@ If You want to  specify the platform just:
 
 ```python
 from anti_useragent import UserAgent
-ua = UserAgent(platform='mac')
+ua = UserAgent(platform='mac') # windows, linux, android, iphone
 ```
 
 If You want to  specify the browser max version or min version just: 
