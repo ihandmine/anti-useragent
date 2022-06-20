@@ -40,8 +40,10 @@ class _SSLMethod(object):
 
     @property
     def context(self):
-        del self.ssl_context[self.version]
-        return self.ssl_context
+        _ssl_context = deepcopy(self.ssl_context)
+        del _ssl_context[self.version]
+        return _ssl_context
+
 
 
 class CipherFactory:
