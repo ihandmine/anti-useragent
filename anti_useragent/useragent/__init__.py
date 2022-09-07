@@ -1,3 +1,4 @@
+from typing import Set, Optional
 from anti_useragent.settings import Settings
 from anti_useragent.utils import logging
 from anti_useragent.utils import misc
@@ -11,8 +12,17 @@ class BaseUserAgent:
             cls._INSTANCE = super().__new__(cls)
         return cls._INSTANCE
 
-    def __init__(self, platform: str, min_version: int, max_version: int, logger, *args, **kwargs):
+    def __init__(self,
+                platform: Optional[str] = None,
+                logger: object = False,
+                min_version: Optional[int] = None,
+                max_version: Optional[int] = None,
+                *args, **kwargs
+                ):
         self.settings = self._settings
+
+        self.min_version = min_version
+        self.max_version = max_version
 
         assert isinstance(self.min_version, int), 'Min Version must be int'
         assert isinstance(self.max_version, int), 'Max Version must be int'
@@ -31,7 +41,7 @@ class BaseUserAgent:
         self.utils = misc
 
 
-    def set_platform(self, platform):
+    def set_platform(self, platform: Optional[str]):
         self.platform = platform
         self.s_info = self.settings.get('PLATFORM_OVERRIDES')[platform][0]
         self.s_bit = self.settings.get('PLATFORM_OVERRIDES')[platform][1]
