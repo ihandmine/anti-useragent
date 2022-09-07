@@ -71,6 +71,9 @@ from anti_useragent import UserAgent
 ua = UserAgent(max_version=90)
 
 ua = UserAgent(min_version=50)
+
+# 1.0.9 new supported
+ua = UserAgent(versions=(90, 100))
 ```
 
 If You want to  specify the enable logger just: 
