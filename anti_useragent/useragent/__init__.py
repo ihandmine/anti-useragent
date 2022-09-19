@@ -21,15 +21,16 @@ class BaseUserAgent:
                 ):
         self.settings = self._settings
 
-        self.min_version = min_version
-        self.max_version = max_version
-
         if min_version:
+            self.min_version = min_version
             assert isinstance(self.min_version, int), 'Min Version must be int'
         if max_version:
+            self.max_version = max_version
             assert isinstance(self.max_version, int), 'Max Version must be int'
-        if platform:
-            assert isinstance(platform or "", str), 'Platform must be string or NoneType'
+        
+        if all([min_version, max_version]) and min_version > max_version:
+            raise Exception("Max Version must lg than Min Version")
+        assert isinstance(platform or "", str), 'Platform must be string or NoneType'
 
         if all([platform, (platform not in self.settings.get('PLATFORM'))]):
             raise TypeError('Unknown platform type: %s' % platform)
