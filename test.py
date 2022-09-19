@@ -7,7 +7,10 @@ if __name__ == '__main__':
     # print(UserAgent(platform='mac').random)
     # print(UserAgent()['firefox'])
 
-    print(UserAgent(platform='windows', min_version=90, max_version=101).chrome)
+    # print(UserAgent(platform='windows', min_version=90, max_version=101).chrome)
+    print(UserAgent().chrome)
+    print(UserAgent(platform='windows').chrome)
+    print(UserAgent(platform='windows', versions=(100, 101)).chrome)
     # print(UserAgent(platform='windows', versions=(90, 100)).chrome)
     # # print(FakeUserAgent().chrome)
 
