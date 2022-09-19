@@ -14,7 +14,7 @@ DESCRIPTION = "fake pc or app browser useragent, anti useragent, and other aweso
 URL = "https://github.com/ihandmine/anti-useragent"
 AUTHOR = "handmine"
 AUTHOR_EMAIL = "handmine@outlook.com"
-VERSION = "1.0.9"
+VERSION = "1.0.10"
 LICENSE = "MIT"
 REQUIRES_PYTHON = ">=3.7.0"
 
